@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components - Ejemplo</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/dark/main.css">
+  <script src="https://js.arcgis.com/4.29/"></script>
+
+  <style>
+    html,
+    body,
+    #divMap{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    require(["esri/WebMap", "esri/views/MapView","esri/widgets/Legend","esri/widgets/Search"],(WebMap, MapView, Legend, Search)=>{
+      const webMap = new WebMap({
+        portalItem:{
+          id:'67672f754f654b1b8965734404ff599f'
+        }
+      })
+
+      const vista = new MapView({
+        container:'divMap',
+        map:webMap
+      })
+
+      const widgetLegend = new Legend ({
+        view:vista
+      })
+
+      const widgetSearch = new Search({
+        view:vista
+      })
+
+      vista.ui.add(widgetLegend,{
+        position: 'bottom-left'
+      })
+
+      vista.ui.add(widgetSearch,{
+        position: 'top-right'
+      })
+
+    })
+  </script>
+
+</head>
+<body>
+  <div id="divMap"></div>
+</body>
+</html>
