@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>LayerList widget</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.30/"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .esri-expand__popover-content{
+        border-radius: 15px;
+    }
+
+    .esri-layer-list{
+        border-radius: 15px;
+    }
+
+    .esri-layer-list__item {
+        --calcite-color-foreground-1: rgb(241, 241, 241);
+    }
+
+    .esri-layer-list__item--active{
+        --calcite-color-foreground-2: rgb(173, 232, 247);
+    }    
+    
+    .esri-layer-list__visible-toggle > calcite-icon  {
+        content: url('https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/information-16-f.svg');
+    }
+
+    .esri-layer-list__visible-toggle > .esri-layer-list__visible-icon{
+        content: url('https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/information-16.svg');
+    }
+
+
+
+  </style>
+
+  <script>
+    require([
+        "esri/WebMap",
+        "esri/views/MapView",
+        "esri/widgets/LayerList",
+        "esri/widgets/Expand"
+      ],
+      function(WebMap, MapView, LayerList,Expand) {
+
+        var map = new WebMap({
+          portalItem:{
+            id:'5e929fa3412545d3affe32416d7bd3da'
+          }
+        });
+
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-4, 40],
+          zoom: 6,
+        });
+        
+        var layerListWidget = new LayerList({
+          view: view,
+        })
+
+        var expandWidget = new Expand ({
+            expandIcon: 'layers',
+            view:view,
+            content:layerListWidget
+        })
+
+        view.ui.add(expandWidget, 'top-right');
+
+        
+      });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
